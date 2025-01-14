@@ -12,4 +12,4 @@
 
 conda activate nnunetv2
 
-python optuna_optimizer.py "/unimore_home/afilippelli/my_segm/config_file_opt/opt1_unet_r50.yaml"
+python optuna_optimizer.py "/unimore_home/afilippelli/my_segm/config_file_opt/opt1_unet_eff.yaml"
