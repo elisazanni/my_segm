@@ -1,15 +1,15 @@
 #!/bin/bash -l
 #SBATCH -A  arscontrol             # account name
 #SBATCH -p  ice4hpc                  # partition name
-#SBATCH --time 40:00:00          # format: HH:MM:SS
+#SBATCH --time 72:00:00          # format: HH:MM:SS
 #SBATCH -N 1                     # 1 node
 #SBATCH --ntasks-per-node=8     # 8/10
 #SBATCH --mem=150g               # memory per node out of 495 Gb cnode or 1000 fnode
-#SBATCH --output=config_4_2.o%j    # Name of batch job output file
-#SBATCH --job-name=config_4_2
+#SBATCH --output=opt_1_1.o%j    # Name of batch job output file
+#SBATCH --job-name=opt_1_1
 #SBATCH --gpus=a100:1            # select gpu 1g.20gb:1 a100:1
 
 
 conda activate nnunetv2
 
-python train.py config_file_gpu/config4_fpn_eff.yaml
+python optuna_optimizer.py "/unimore_home/afilippelli/my_segm/config_file_opt/opt4_fpn_r50.yaml"

@@ -12,4 +12,4 @@
 
 conda activate nnunetv2
 
-python train.py config_file_gpu/config4_fpn_eff.yaml
+python train.py config_file_gpu/config4_fpn_r50.yaml
