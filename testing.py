@@ -12,12 +12,6 @@ from config import config
 IMAGE_HEIGHT = config['patch_size']
 IMAGE_WIDTH = config['patch_size']
 
-# If you use the binary model
-# classes = ['background', 'instrument']
-# If you use the multiclass model
-# (see the train_model.py for the entire lists of classes)
-# classes = ['Tissue', 'Force Bipolar', 'Fenestrated Bipolar Forceps', 'Prograsp Forceps', 'Monopolar Curved Scissors',
-#           'Suction', 'Large Needle Driver', 'Echography']
 classes = config['classes']
 
 weights_files = glob.glob(os.path.join(config['results_dir'], '*.pth'))

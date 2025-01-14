@@ -14,11 +14,22 @@ from dataset_manager import Histology_Dataset
 import dataset_manager
 from torch.utils.data import DataLoader
 from epoch import TrainEpoch, ValidEpoch
-from config import config
+import yaml
+
+
+optFile = sys.argv[1]
+
+
+with open(optFile, "r") as f:
+    opt = yaml.safe_load(f)
+
+inFile = opt['config_file']
+with open(inFile, "r") as f:
+    config = yaml.safe_load(f)
 
 
 BATCH_SIZE = int(config['batch_size'])
-NUM_EPOCHS = int(config['epochs'])
+NUM_EPOCHS = int(opt['epochs'])
 LOSS = config['loss']
 SAVE_CRITERION = config['save_criterion']
 ACTIVATION = None
@@ -179,11 +190,12 @@ def objective(trial):
 
 
 def main():
-    study_name = "opt_1_1"  # Nome dello studio
-    storage_name = "sqlite:///opt_1_1.db"  # File SQLite
+    study_name = opt['study_name'] # Nome dello studio
+    db_file = f"{opt['study_name']}.db"  # Nome del file SQLite
+    storage_name = f"sqlite:///{db_file}"  # Stringa di connessione SQLite
 
     # Controlla se il file SQLite esiste
-    if os.path.exists("optuna_study.db"):
+    if os.path.exists(db_file):
         study = optuna.load_study(study_name=study_name, storage=storage_name)
     else:
         study = optuna.create_study(study_name=study_name, storage=storage_name, direction="maximize")
@@ -192,7 +204,7 @@ def main():
     
     # Salvare le visualizzazioni
     fig = optuna.visualization.plot_param_importances(study)
-    fig.write_image('opt_1_1.png')
+    fig.write_image(f'{opt["study_name"]}.png')
 
     # Stampa delle statistiche dello studio
     pruned_trials = [t for t in study.trials if t.state == optuna.trial.TrialState.PRUNED]

@@ -1,0 +1,3 @@
+config_file: "/unimore_home/afilippelli/my_segm/config_file_gpu/config3_dlv_eff.yaml"
+study_name: "opt3_dlv_eff"
+epochs: 70

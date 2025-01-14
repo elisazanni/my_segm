@@ -18,7 +18,7 @@ learning_rate: 0.0001
 save_criterion: "mean_IoU"
 #-------DATA LOADING----------
 classes: ["background", "tumor", "necrosis", "tissue", "cirrhotic_tissue", "exogenous_material"]
-epochs: 80
+epochs: 100
 patch_size: 512
 batch_size: 4
 augmentation: True

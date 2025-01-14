@@ -1,0 +1,3 @@
+config_file: "/unimore_home/afilippelli/my_segm/config_file_gpu/config2_seg_eff.yaml"
+study_name: "opt2_seg_eff"
+epochs: 70

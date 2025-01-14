@@ -43,8 +43,8 @@ class Histology_Dataset(Dataset):
         imgs_dir = Path(imgs_dir).resolve()
         masks_dir = Path(masks_dir).resolve()
 
-        self.images = sorted(imgs_dir.glob('*_0000_*.png'))
-        self.masks = sorted(masks_dir.glob('*_mask_*.png'))
+        self.images = sorted(imgs_dir.glob('*_0000*.png'))
+        self.masks = sorted(masks_dir.glob('*_mask*.png'))
 
         self.image_paths = []
         self.mask_paths = []
