@@ -1,0 +1,15 @@
+#!/bin/bash -l
+#SBATCH -A  arscontrol             # account name
+#SBATCH -p  ice4hpc                  # partition name
+#SBATCH --time 40:00:00          # format: HH:MM:SS
+#SBATCH -N 1                     # 1 node
+#SBATCH --ntasks-per-node=8     # 8/10
+#SBATCH --mem=150g               # memory per node out of 495 Gb cnode or 1000 fnode
+#SBATCH --output=config_3_2.o%j    # Name of batch job output file
+#SBATCH --job-name=config_3_2
+#SBATCH --gpus=a100:1            # select gpu 1g.20gb:1 a100:1
+
+
+conda activate nnunetv2
+
+python train.py config_file_gpu/config3_dlv3_r50.yaml

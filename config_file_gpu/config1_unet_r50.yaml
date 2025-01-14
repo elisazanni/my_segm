@@ -1,0 +1,27 @@
+os: dos #dos o unix
+device: cuda
+#-------------DIRECTORIES------------
+train: /unimore_home/afilippelli/dataset_bilanciato/train/
+train_masks: /unimore_home/afilippelli/dataset_bilanciato/trainannot/
+val: /unimore_home/afilippelli/dataset_bilanciato/val/
+val_masks: /unimore_home/afilippelli/dataset_bilanciato/valannot/
+test: /unimore_home/afilippelli/dataset_bilanciato/test/
+test_masks: /unimore_home/afilippelli/dataset_bilanciato/testannot/
+results_dir: results_unet_r50
+#----NET AND CONTEXT----------
+model_name: "Unet++"
+encoder: "resnet50"
+encoder_weights: "imagenet"
+dropout: 0.43
+patience: 50
+learning_rate: 0.0001
+save_criterion: "mean_IoU"
+#-------DATA LOADING----------
+classes: ["background", "tumor", "necrosis", "tissue", "cirrhotic_tissue", "exogenous_material"]
+epochs: 80
+patch_size: 512
+batch_size: 4
+augmentation: True
+# ------LOSS AND OPTIMIZATION----------
+loss: dice
+opt: ADAM1
