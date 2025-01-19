@@ -1,3 +1,4 @@
 config_file: "/unimore_home/afilippelli/my_segm/config_file_gpu/config3_dlv_eff.yaml"
 study_name: "opt3_dlv_eff"
 epochs: 70
+classes: ["background", "tumor", "necrosis", "tissue", "cirrhotic_tissue", "exogenous_material"]

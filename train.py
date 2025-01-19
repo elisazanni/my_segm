@@ -159,7 +159,7 @@ if __name__ == '__main__':
 
         # Salvataggio dei risultati
         save = False
-        if (i % 1) == 0:
+        if (i % 5) == 0:
             save = True
 
         IoU, inference_time, FBetaScore, DiceScore = saveResults(valid_loader, model, len(config['classes']),

@@ -1,3 +1,4 @@
 config_file: "/unimore_home/afilippelli/my_segm/config_file_gpu/config2_seg_r50.yaml"
 study_name: "opt2_seg_r50"
 epochs: 70
+classes: ["background", "tumor", "necrosis", "tissue", "cirrhotic_tissue", "exogenous_material"]
