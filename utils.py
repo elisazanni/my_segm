@@ -104,7 +104,6 @@ def saveResults(X_test, model, num_classes, out_dir, save_img=False):
     return IoU, sum(comp_time) / len(comp_time), FBetaScore, DiceScore
 
 
-
 # function to print summary and profiling of the network
 def network_stats(model, device, batch_size):
     # Print summary of the model layers given the input dimension
