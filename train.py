@@ -207,19 +207,16 @@ if __name__ == '__main__':
         }, metrics_dir / f"{config['encoder']}-{config['model_name']}_checkpoint.pth")
         print(f"Checkpoint salvato per l'epoca {i}")
 
-        # Early stopping
         if es_counter >= config['patience']:
             print(f"EARLY STOPPING... TRAINING IS STOPPED")
             break
 
-        # Print IoU di ogni classe
         for c in range(len(config["classes"])):
             print(config['classes'][c], IoU[c])
 
         scheduler.step(valid_logs['loss'])  # Scheduler step basato sulla validation loss
         print('Ready for the next epoch')
 
-        # Cleanup
         del train_logs, valid_logs, IoU
 
     # Test phase
