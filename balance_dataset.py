@@ -16,8 +16,7 @@ def analyze_images(input_folder, output_file):
     }
 
     color_stats = {color: {'pixels': 0, 'occurrences': 0} for color in color_classes}
-
-    total_pixels = 0
+    total_pixels_all_images = 0
     total_images = 0
     unknown_colors = set()
 
@@ -26,19 +25,34 @@ def analyze_images(input_folder, output_file):
             image_path = os.path.join(input_folder, filename)
             image = cv2.imread(image_path)
             if image is not None:
-                total_pixels += image.shape[0] * image.shape[1]
+                total_pixels_in_image = image.shape[0] * image.shape[1]
+                total_pixels_all_images += total_pixels_in_image
                 total_images += 1
 
-                # Check for each pixel and classify by color
+                image_color_stats = {color: {'pixels': 0} for color in color_classes}
+
+                # Check each pixel to classify by color
                 for row in image:
                     for pixel in row:
                         color_tuple = tuple(pixel)
                         if color_tuple in color_classes:
-                            color_stats[color_tuple]['pixels'] += 1
+                            image_color_stats[color_tuple]['pixels'] += 1
                         else:
                             unknown_colors.add(color_tuple)
 
-    # Check if any unknown colors were encountered
+                # Calculate the percentage for each color in this image
+                for color, stats in image_color_stats.items():
+                    if stats['pixels'] > 0:
+                        stats['percentage'] = (stats['pixels'] / total_pixels_in_image) * 100
+                    else:
+                        stats['percentage'] = 0
+
+                for color in image_color_stats:
+                    color_stats[color]['pixels'] += image_color_stats[color]['pixels']
+                    if image_color_stats[color]['pixels'] > 0:
+                        color_stats[color]['occurrences'] += 1
+
+    # check if any unknown colors were encountered
     if unknown_colors:
         print("Error: The following colors are not defined in the color_classes list:")
         for color in unknown_colors:
@@ -46,19 +60,19 @@ def analyze_images(input_folder, output_file):
     else:
         print("All colors are valid.")
 
-    # Calculate percentages
+    # percentage across all images
     for color in color_stats:
-        color_stats[color]['percentage'] = (color_stats[color][
-                                                'pixels'] / total_pixels) * 100 if total_pixels > 0 else 0
+        if total_pixels_all_images > 0:
+            color_stats[color]['total_percentage'] = (color_stats[color]['pixels'] / total_pixels_all_images) * 100
+        else:
+            color_stats[color]['total_percentage'] = 0
 
-    # Save results to output file
     with open(output_file, 'w') as file:
         json.dump(color_stats, file, indent=4)
 
     print(f"Analysis complete. Results saved in {output_file}")
 
 
-# Usage
 input_folder = sys.argv[1]
 output_file = 'color_analysis_results.json'
 analyze_images(input_folder, output_file)
