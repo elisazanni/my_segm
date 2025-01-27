@@ -5,6 +5,8 @@ import dataset_manager
 import glob
 from PIL import Image
 import sys
+
+import semantic_masks
 from config import config
 
 IMAGE_HEIGHT = config['patch_size']
@@ -70,7 +72,7 @@ def predict_and_save(input_dir, output_dir):
     preprocessing = dataset_manager.get_preprocessing(preprocessing_fn)
 
     for file_name in os.listdir(input_dir):
-        if file_name.endswith('_0000.png'):
+        if file_name.endswith('.png'):
             # Carica l'immagine
             img_path = os.path.join(input_dir, file_name)
             img = Image.open(img_path)
@@ -83,8 +85,9 @@ def predict_and_save(input_dir, output_dir):
 
             # Salva l'immagine predetta
             pred_img = Image.fromarray(output.astype('uint8'))
+            pred_color = semantic_masks.labels2colors(pred_img)
             pred_file_name = file_name.replace('_0000.png', '_pred.png')
-            pred_img.save(os.path.join(output_dir, pred_file_name))
+            pred_color.save(os.path.join(output_dir, pred_file_name))
 
 
 

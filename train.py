@@ -93,14 +93,14 @@ if __name__ == '__main__':
 
     valid_dataset = Histology_Dataset(
         config['val'], config['val_masks'],
-        augmentations=dataset_manager.get_augmentations(),
+        augmentations=None,
         preprocessing=dataset_manager.get_preprocessing(preprocessing_fn),
     )
     print(f"Validation dataset size: {len(valid_dataset)}")
 
     test_dataset = Histology_Dataset(
         config['test'], config['test_masks'],
-        augmentations=dataset_manager.get_augmentations(),
+        augmentations=None,
         preprocessing=dataset_manager.get_preprocessing(preprocessing_fn),
     )
     print(f"Test dataset size: {len(test_dataset)}")
@@ -159,7 +159,7 @@ if __name__ == '__main__':
 
         # Salvataggio dei risultati
         save = False
-        if (i % 5) == 0:
+        if (i % 10) == 0:
             save = True
 
         IoU, inference_time, FBetaScore, DiceScore = saveResults(valid_loader, model, len(config['classes']),

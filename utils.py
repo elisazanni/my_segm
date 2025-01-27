@@ -90,12 +90,11 @@ def saveResults(X_test, model, num_classes, out_dir, save_img=False):
             save_dir = os.path.join(out_dir, 'TEST')
             if not os.path.exists(save_dir):
                 os.mkdir(save_dir)
-            # ho aggiunto io questa riga perchè mi dava errori di dimensioni. e' giusta??????
-            # res = torch.argmax(res, dim=0).cpu().numpy()
             # print(f"Prediction shape: {res.shape}")
             mask = semantic_masks.labels2colors(res)
             print("the saving path of the image is:", save_dir + f'/{image_name}_pred' + str(ix) + '.png')
             cv2.imwrite(save_dir + f'/{image_name}_pred' + str(ix) + '.png', mask[:, :, ::-1])
+        ix = ix+1
 
     IoU = computeIoU(predictions, targets, num_classes)
     FBetaScore = np.array(computeFBetaScore(predictions, targets, num_classes))
