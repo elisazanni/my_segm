@@ -1,3 +1,6 @@
 dataset
 config_mio_pc
 prova.py
+results_unet_eff
+groundtruth_valid
+groundtruth
