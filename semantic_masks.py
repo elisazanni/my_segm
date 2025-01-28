@@ -20,6 +20,9 @@ labels_to_colors = {
     5: (204, 102, 77)
 }
 
+id2label = {0: 'background', 1: 'Tumor', 2: 'Necrosis', 3:'Tissue', 4:'Cirrhotic tissue', 5:'Exogenous material'}
+label2id = {v: k for k, v in id2label.items()}
+
 
 def labels2colors(mask):
     """
@@ -27,11 +30,11 @@ def labels2colors(mask):
     :param mask: A mask where each class has its own integer value or a one-hot encoded mask.
     :return: A mask where each class has its own color.
     """
-    # Se la maschera è 4D (batch, classi, H, W), rimuovi la dimensione batch e usa argmax
+    # Se la maschera ï¿½ 4D (batch, classi, H, W), rimuovi la dimensione batch e usa argmax
     if mask.ndim == 4 and mask.shape[0] == 1:
         mask = mask[0].argmax(axis=0)  # (6, 512, 512) -> (512, 512)
 
-    # Se la maschera è 3D (classi, H, W), usa argmax
+    # Se la maschera ï¿½ 3D (classi, H, W), usa argmax
     elif mask.ndim == 3 and mask.shape[0] > 1:
         mask = mask.argmax(axis=0)  # (6, 512, 512) -> (512, 512)
 

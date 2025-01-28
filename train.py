@@ -5,7 +5,10 @@ import torch
 import segmentation_models_pytorch as smp
 from torch.utils.data import DataLoader
 import pandas as pd
+from transformers import SegformerForSemanticSegmentation
+
 import dataset_manager
+import semantic_masks
 from epoch import TrainEpoch, ValidEpoch
 import matplotlib.pyplot as plt
 import yaml
@@ -43,6 +46,12 @@ def choose_model():
             activation=None,
             aux_params={'classes': len(classes), 'dropout': 0.43}
         )
+    elif config['model_name'] == 'SegFormer':
+        model = SegformerForSemanticSegmentation.from_pretrained("nvidia/mit-b5", ignore_mismatched_sizes=True,
+                                                         id2label=semantic_masks.id2label, label2id=semantic_masks.label2id,
+                                                         reshape_last_stage=True, num_labels=len(semantic_masks.id2label)
+        )
+
     else:
         model = None
 
