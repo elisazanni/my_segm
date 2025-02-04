@@ -7,7 +7,7 @@
 #SBATCH --mem=150g               # memory per node out of 495 Gb cnode or 1000 fnode
 #SBATCH --output=config_1_2.o%j    # Name of batch job output file
 #SBATCH --job-name=config_1_2
-#SBATCH --gpus=a100:1            # select gpu 1g.20gb:1 a100:1
+#SBATCH --gpus=1g.20gb:1           # select gpu 1g.20gb:1 a100:1
 
 
 conda activate nnunetv2
