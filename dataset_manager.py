@@ -42,9 +42,9 @@ class Histology_Dataset(Dataset):
     def __init__(self, imgs_dir, masks_dir, augmentations=None, preprocessing=None):
         imgs_dir = Path(imgs_dir).resolve()
         masks_dir = Path(masks_dir).resolve()
-
-        self.images = sorted(imgs_dir.glob('*_0000*.png'))
-        self.masks = sorted(masks_dir.glob('*_mask*.png'))
+        
+        self.images = sorted(imgs_dir.glob('*_0000.png'))
+        self.masks = sorted(masks_dir.glob('*.png'))
 
         self.image_paths = []
         self.mask_paths = []
@@ -52,7 +52,7 @@ class Histology_Dataset(Dataset):
         self.preprocessing = preprocessing
         self.augmentations = augmentations
 
-        mask_dict = {os.path.basename(mask_path).split('_mask')[0]+os.path.basename(mask_path).split('_mask')[1][:-4]: mask_path for mask_path in self.masks}
+        mask_dict = {os.path.basename(mask_path)[:-4]: mask_path for mask_path in self.masks}
 
         for img_path in self.images:
             img_name = img_path.name
@@ -164,4 +164,3 @@ class Histology_Dataset(Dataset):
             axes[1].axis('off')
 
             plt.show()
-
